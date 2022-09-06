@@ -289,19 +289,26 @@ public class ConsultaConsumidorForencedorView extends JDialog {
 	
 	private void excluir() {
 
-		if(table.getSelectedRow() < 0) {
-			JOptionPane.showMessageDialog(this, "É necessario selecionar um registro!",
-					"Mensagem de aviso!", JOptionPane.WARNING_MESSAGE);
-		}else {
-			Object[] options = {"Sim", "Não"};
-			int n = JOptionPane.showOptionDialog(null, 
-					"Deseja realmente excluir o registro?", 
-					"Confirmação", JOptionPane.YES_NO_CANCEL_OPTION,
-					JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-		
-			if(n == 0) {
-				PessoaVO pessoaVO = (PessoaVO) tableModel.getRows()
-						.get(table.getSelectedRow().getElement());
+		if (table.getSelectedRow() < 0) {
+			JOptionPane.showMessageDialog(this, "É necessário selecionar um registro!", "Mensagem de aviso!",
+					JOptionPane.WARNING_MESSAGE);
+		} else {
+
+			Object[] options = { "Sim", "Não" };
+			int n = JOptionPane.showOptionDialog(null, "Deseja realmente excluir o registro?", "Confirmação",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+
+			if (n == 0) {
+				PessoaVO pessoaVO = (PessoaVO) tableModel.getRows().get(table.getSelectedRow()).getElement();
+
+				try {
+					serviceBeanLocal.excluirPessoa(pessoaVO);
+					pesquisar();
+				} catch (BOException e) {
+					JOptionPane.showMessageDialog(this, "Ocorreu um erro ao realizar a operação!", "Mensagem de erro",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
+		}
 	}
 }
