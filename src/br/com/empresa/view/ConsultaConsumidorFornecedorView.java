@@ -148,6 +148,11 @@ public class ConsultaConsumidorFornecedorView extends JDialog {
 		getContentPane().add(btnAdicionar);
 
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editar();
+			}
+		});
 		btnEditar.setBounds(102, 124, 89, 23);
 		getContentPane().add(btnEditar);
 
@@ -211,6 +216,28 @@ public class ConsultaConsumidorFornecedorView extends JDialog {
 		cfv.setVisible(true);
 		
 	}
+	
+	private void editar() {
+		
+		if(table.getSelectedRow() < 0) {
+			JOptionPane.showMessageDialog(this, 
+					"É necessário selecionar um registro!",
+					"Mensagem de aviso",
+					JOptionPane.WARNING_MESSAGE);
+		}else {
+			
+			ConsumidorFornecedorView cfv = 
+					new ConsumidorFornecedorView(this);
+			
+			PessoaVO aux = (PessoaVO)tableModel.getRows().get(table.getSelectedRow()).getElement();
+			
+			cfv.editar(aux);
+			
+			cfv.setVisible(true);
+		}
+		
+		
+	}
 
 	private void fechar() {
 		this.setVisible(false);
@@ -256,7 +283,7 @@ public class ConsultaConsumidorFornecedorView extends JDialog {
 
 	}
 
-	private void pesquisar() {
+	public void pesquisar() {
 
 		TableModel tableModel = (TableModel) table.getModel();
 		tableModel.clearTable();

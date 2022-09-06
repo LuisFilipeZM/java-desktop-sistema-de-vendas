@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
@@ -257,13 +258,42 @@ public class ConsumidorFornecedorView extends JDialog {
 		}
 		
 		try {
+			
 			servicoBeanLocal.salvarPessoa(pessoaVO);
+			
+			tfCodigo.setText(pessoaVO.getId().toString());
+			
+			telaAnterior.pesquisar();
+			
+			JOptionPane.showMessageDialog(this, "Operação realizada com sucesso!",
+					"Mensagem de comfirmação", JOptionPane.INFORMATION_MESSAGE);
+			
 		} catch (BOValidationException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Mensagem de alerta",
+					JOptionPane.WARNING_MESSAGE);
 			e.printStackTrace();
 		} catch (BOException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "Ocorreu um erro ao realizar a operação",
+					"Mensagem de erro",
+					JOptionPane.WARNING_MESSAGE);
 			e.printStackTrace();
 		}
+	}
+
+	public void editar(PessoaVO pessoa) {
+		
+		this.pessoaVO = pessoa;
+		this.tfCodigo.setText(pessoa.getId().toString());
+		this.cbPessoa.setSelectedItem(TipoPessoaEnum.valueOf(pessoa.getTippes()));
+		this.cbEstado.setSelectedItem(EstadoEnum.valueOf(pessoa.getEstado()));
+		this.ftfCpfCnpj.setText(pessoa.getCpfcnp());
+		this.tfNome.setText(pessoa.getDescri());
+		this.ftfCep.setText(pessoa.getCepend().toString());
+		this.tfEndereco.setText(pessoa.getRuaend());
+		this.tfNumero.setText(pessoa.getNumend());
+		this.tfComplemento.setText(pessoa.getComend());
+		this.tfBairro.setText(pessoa.getBaiend());
+		this.tfCidade.setText(pessoa.getCidade());
+		
 	}
 }

@@ -80,6 +80,8 @@ public class PessoaDAO implements IPessoaDAO {
 				pessoa.setId(BigInteger.ONE);
 			}
 			
+			Dados.getPessoaVOs().add(pessoa);
+			
 		}else {
 			
 			for(int i = 0; i < pessoaVOs.size(); i++) {

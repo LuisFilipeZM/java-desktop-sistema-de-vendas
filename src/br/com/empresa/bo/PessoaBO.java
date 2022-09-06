@@ -113,6 +113,8 @@ public class PessoaBO implements IPessoaBO {
 			
 		}
 		
+		pessoaDAO.salvarPessoa(pessoa);
+		
 	}
 
 	@Override
