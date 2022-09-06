@@ -8,10 +8,10 @@ import br.com.empresa.vo.UsuarioVO;
 
 public interface IUsuarioClienteBO {
 
-	public abstract List<UsuarioClienteVO> listarClienteUsuario(UsuarioVO usuario) 
+	public abstract List<UsuarioClienteVO> listarClientesUsuario(UsuarioVO usuario) 
 			throws BOException;
-	
-	public abstract int buscarQuantidadeClienteUsuario(UsuarioVO usuario) 
+
+	public abstract int buscarQuantidadeClientesUsuario(UsuarioVO usuario) 
 			throws BOException;
-	
+
 }

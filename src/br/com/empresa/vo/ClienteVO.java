@@ -8,9 +8,10 @@ public class ClienteVO implements Serializable {
 
 	private static final long serialVersionUID = 1112726238207419475L;
 
+
 	private BigInteger id;
 	
-	//Nome do cliente - 100 caracteres
+	//Nome do cliente - 100 caractere
 	private String descri;
 
 	public ClienteVO() {
@@ -63,5 +64,19 @@ public class ClienteVO implements Serializable {
 	public String toString() {
 		return descri;
 	}
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 package br.com.empresa.exception;
 
 public class BOValidationException extends BOException {
-
+	
 	public BOValidationException() {
 		super();
 	}
@@ -13,4 +13,6 @@ public class BOValidationException extends BOException {
 	public BOValidationException(Throwable cause) {
 		super(cause);
 	}
+	
+
 }

@@ -12,18 +12,18 @@ import br.com.empresa.vo.UsuarioVO;
 
 public interface IServicoBeanLocal {
 	
-	public abstract UsuarioVO validarUsuario(String login, String senha) 
-			throws BOValidationException, BOException;
-
-	public abstract List<UsuarioClienteVO> listarClienteUsuario(UsuarioVO usuario) 
-			throws BOException;
+	public abstract UsuarioVO validarAcesso(String login, String senha)
+			throws BOValidationException, BOException ;
 	
-	public abstract int buscarQuantidadeClienteUsuario(UsuarioVO usuario) 
+	public abstract List<UsuarioClienteVO> listarClientesUsuario(UsuarioVO usuario) 
+			throws BOException;
+
+	public abstract int buscarQuantidadeClientesUsuario(UsuarioVO usuario) 
 			throws BOException;
 	
 	public abstract List<PessoaVO> listarPessoas(String tipoPessoa, String nomePessoa,
-			String cpfCnpj, String cidade, String estado, ClienteVO cliente)
-			throws BOValidationException, BOException;
+		String cpfCnpj, String cidade, String estado, ClienteVO cliente)
+		throws BOValidationException, BOException;
 	
 	public abstract void salvarPessoa(PessoaVO pessoa) throws BOValidationException,
 		BOException;
@@ -33,6 +33,21 @@ public interface IServicoBeanLocal {
 	
 	public abstract PessoaVO buscarPessoaPorId(PessoaVO pessoa) throws BOException;
 	
-	public abstract List<PessoaVO> ListarPessoas(int first, int pageSize, 
+	public abstract List<PessoaVO> listarPessoas(int first, int pageSize, 
 			Map<String, Object> filters, ClienteVO cliente) throws BOException;
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

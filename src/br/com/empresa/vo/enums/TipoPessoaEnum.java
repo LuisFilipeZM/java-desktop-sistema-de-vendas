@@ -2,8 +2,7 @@ package br.com.empresa.vo.enums;
 
 public enum TipoPessoaEnum {
 
-	F("Fisica"),
-	J("Jurídica");
+	F("Física"), J("Jurídica");
 	
 	private String tipoPessoa;
 	

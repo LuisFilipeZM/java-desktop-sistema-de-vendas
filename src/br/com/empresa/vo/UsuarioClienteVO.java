@@ -5,15 +5,16 @@ import java.math.BigInteger;
 import java.util.Objects;
 
 /**
- * Esta classe é responsavel por manter a ligação entre o ususario e o cliente
+ * Esta classe é responsável por manter a ligação entre o usuário e o cliente.
  * 
  * @since 11/08/2022
- * @author luis_
- *
+ * @author rogerio.cortina
+ * 
  * Revisão
- * 11/08/2022 - Foi criada a classe - chamado 16432
+ * 11/08/2022 - Foi criada classe - Chamado 15454
+ *
  */
-public class UsuarioClienteVO implements Serializable{
+public class UsuarioClienteVO implements Serializable {
 	
 	private static final long serialVersionUID = -6579470528248612010L;
 
@@ -76,4 +77,8 @@ public class UsuarioClienteVO implements Serializable{
 		UsuarioClienteVO other = (UsuarioClienteVO) obj;
 		return Objects.equals(id, other.id);
 	}
+	
+	
+	
+
 }

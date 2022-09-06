@@ -67,33 +67,33 @@ public class Dados {
 		usuarioClienteVOs.add(uc2);
 		usuarioClienteVOs.add(uc3);
 		
-		//inclusao de pessoas
+		//Inclusão de Pessoas
 		pessoaVOs = new ArrayList<PessoaVO>();
 		
 		PessoaVO p1 = new PessoaVO();
 		p1.setId(new BigInteger("1"));
 		p1.setDescri("Pedro da Silva");
-		p1.setCpfcnp("113183599-96");
+		p1.setCpfcnp("031174549-64");
 		p1.setTippes("F");
 		p1.setRuaend("Rua Varci Colombo");
-		p1.setBaiend("Bairro tal");
-		p1.setNumend("434");
-		p1.setCidade("Criciuma");
+		p1.setBaiend("Bairro X");
+		p1.setNumend("747");
+		p1.setCidade("Criciúma");
 		p1.setEstado("SC");
-		p1.setCepend(88820000);
+		p1.setCepend(88818686);
 		p1.setClienteVO(c1);
 		
 		PessoaVO p2 = new PessoaVO();
 		p2.setId(new BigInteger("2"));
-		p2.setDescri("Maria Oliveira");
-		p2.setCpfcnp("123164765-99");
+		p2.setDescri("Maria Joaquina");
+		p2.setCpfcnp("544545445-44");
 		p2.setTippes("F");
-		p2.setRuaend("Rua Ezio Lima");
-		p2.setBaiend("Bairro lima");
-		p2.setNumend("999");
-		p2.setCidade("Criciuma");
+		p2.setRuaend("Rua Marechal Colombo");
+		p2.setBaiend("Bairro XYZ");
+		p2.setNumend("800");
+		p2.setCidade("Criciúma");
 		p2.setEstado("SC");
-		p2.setCepend(88820000);
+		p2.setCepend(88818686);
 		p2.setClienteVO(c1);
 		
 		pessoaVOs.add(p1);
@@ -103,14 +103,6 @@ public class Dados {
 
 	public static UsuarioVO getUsuarioLogado() {
 		return usuarioLogado;
-	}
-
-	public static List<PessoaVO> getPessoaVOs() {
-		return pessoaVOs;
-	}
-
-	public static void setPessoaVOs(List<PessoaVO> pessoaVOs) {
-		Dados.pessoaVOs = pessoaVOs;
 	}
 
 	public static void setUsuarioLogado(UsuarioVO usuarioLogado) {
@@ -147,6 +139,14 @@ public class Dados {
 
 	public static void setUsuarioClienteVOs(List<UsuarioClienteVO> usuarioClienteVOs) {
 		Dados.usuarioClienteVOs = usuarioClienteVOs;
+	}
+	
+	public static List<PessoaVO> getPessoaVOs() {
+		return pessoaVOs;
+	}
+
+	public static void setPessoaVOs(List<PessoaVO> pessoaVOs) {
+		Dados.pessoaVOs = pessoaVOs;
 	}
 
 }

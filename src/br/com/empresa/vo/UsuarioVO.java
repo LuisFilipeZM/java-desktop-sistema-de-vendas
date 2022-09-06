@@ -17,21 +17,23 @@ public class UsuarioVO implements Serializable {
 	private String senusu;
 	
 	private PessoaVO pessoaVO;
-	
+
 	public UsuarioVO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public UsuarioVO(BigInteger id) {
 		super();
 		this.id = id;
 	}
-	
-	public UsuarioVO(BigInteger id, String logusu, String senusu) {
-		super();
-		this.id = id;
-		this.logusu = logusu;
-		this.senusu = senusu;
+
+	public PessoaVO getPessoaVO() {
+		return pessoaVO;
+	}
+
+	public void setPessoaVO(PessoaVO pessoaVO) {
+		this.pessoaVO = pessoaVO;
 	}
 
 	public BigInteger getId() {
@@ -62,13 +64,7 @@ public class UsuarioVO implements Serializable {
 		return serialVersionUID;
 	}
 
-	public PessoaVO getPessoaVO() {
-		return pessoaVO;
-	}
 
-	public void setPessoaVO(PessoaVO pessoaVO) {
-		this.pessoaVO = pessoaVO;
-	}
 
 	@Override
 	public int hashCode() {
@@ -87,4 +83,6 @@ public class UsuarioVO implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 	
+	
+
 }

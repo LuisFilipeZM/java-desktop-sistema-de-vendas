@@ -7,67 +7,45 @@ import java.util.Objects;
 public class PessoaVO implements Serializable {
 
 	private static final long serialVersionUID = 390695892933900176L;
-	
-	//
+
 	private BigInteger id;
 	
-	//CPF CNPJ - 12 CARACTERE 
+	//CPF CNPJ - 12 CARACTERES
 	private String cpfcnp;
 	
-	//TIPO DE PESSOA - 1 CARACTERE (F-FISICA / J-JURIDICA)
+	//Tipo de pessoa - 1 Caractere (F-Física / J-Jurídica)
 	private String tippes;
 	
-	//NOME- 100 CARACTERE
+	//Nome - 100 Caracteres
 	private String descri;
 	
 	//CEP
 	private Integer cepend;
 	
-	//NOME DA RUA - 80 CARACTERES
+	//Nome da rua - 80 caracteres
 	private String ruaend;
 	
-	//BAIRRO - 30 CARACTERES
+	//Bairro - 30 caracteres;
 	private String baiend;
 	
-	//COMPLEMENTO DO ENDEREÇO - 80 CARACTERES
+	//Complemento do endereço - 80 caracteres
 	private String comend;
 	
-	//NUMERO DO ENDEREÇO - 20 CARACTERES
+	//Número do endereço - 20 carecteres
 	private String numend;
 	
-	//CIDADE
+	//Nome da cidade - 30 caracteres
 	private String cidade;
 	
-	//ESTADO
+	//Estado - 2 caracteres
 	private String estado;
 	
-	//cliente - chave estrangeira
+	//Cliente - chave estrangeira
 	private ClienteVO clienteVO;
-
 
 	public PessoaVO() {
 		super();
-	}
-
-	public PessoaVO(BigInteger id) {
-		super();
-		this.id = id;
-	}
-
-	public PessoaVO(BigInteger id, String cpfcnp, String tippes, String descri, Integer cepend, String ruaend,
-			String baiend, String comend, String numend, String cidade, String estado) {
-		super();
-		this.id = id;
-		this.cpfcnp = cpfcnp;
-		this.tippes = tippes;
-		this.descri = descri;
-		this.cepend = cepend;
-		this.ruaend = ruaend;
-		this.baiend = baiend;
-		this.comend = comend;
-		this.numend = numend;
-		this.cidade = cidade;
-		this.estado = estado;
+		// TODO Auto-generated constructor stub
 	}
 
 	public BigInteger getId() {
@@ -161,6 +139,11 @@ public class PessoaVO implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public PessoaVO(BigInteger id) {
+		super();
+		this.id = id;
+	}
 	
 	public ClienteVO getClienteVO() {
 		return clienteVO;
@@ -185,5 +168,8 @@ public class PessoaVO implements Serializable {
 			return false;
 		PessoaVO other = (PessoaVO) obj;
 		return Objects.equals(id, other.id);
-	}
+	}	
+	
+	
+
 }

@@ -19,28 +19,28 @@ import br.com.empresa.vo.UsuarioVO;
 public class ServicoBeanLocal implements IServicoBeanLocal {
 
 	@Override
-	public UsuarioVO validarUsuario(String login, String senha) 
+	public UsuarioVO validarAcesso(String login, String senha) 
 			throws BOValidationException, BOException {
-
+		
 		IUsuarioBO usuarioBO = new UsuarioBO();
 		
 		return usuarioBO.validarAcesso(login, senha);
 	}
 
 	@Override
-	public List<UsuarioClienteVO> listarClienteUsuario(UsuarioVO usuario) throws BOException {
+	public List<UsuarioClienteVO> listarClientesUsuario(UsuarioVO usuario) throws BOException {
 		
 		IUsuarioClienteBO usuarioClienteBO = new UsuarioClienteBO();
 		
-		return usuarioClienteBO.listarClienteUsuario(usuario);
+		return usuarioClienteBO.listarClientesUsuario(usuario);
 	}
 
 	@Override
-	public int buscarQuantidadeClienteUsuario(UsuarioVO usuario) throws BOException {
+	public int buscarQuantidadeClientesUsuario(UsuarioVO usuario) throws BOException {
 		
 		IUsuarioClienteBO usuarioClienteBO = new UsuarioClienteBO();
 		
-		return usuarioClienteBO.buscarQuantidadeClienteUsuario(usuario);
+		return usuarioClienteBO.buscarQuantidadeClientesUsuario(usuario);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class ServicoBeanLocal implements IServicoBeanLocal {
 
 	@Override
 	public void salvarPessoa(PessoaVO pessoa) throws BOValidationException, BOException {
-
+		
 		IPessoaBO pessoaBO = new PessoaBO();
 		
 		pessoaBO.salvarPessoa(pessoa);
@@ -64,7 +64,7 @@ public class ServicoBeanLocal implements IServicoBeanLocal {
 
 	@Override
 	public void excluirPessoa(PessoaVO pessoa) throws BOValidationException, BOException {
-
+		
 		IPessoaBO pessoaBO = new PessoaBO();
 		
 		pessoaBO.excluirPessoa(pessoa);
@@ -80,13 +80,17 @@ public class ServicoBeanLocal implements IServicoBeanLocal {
 	}
 
 	@Override
-	public List<PessoaVO> ListarPessoas(int first, int pageSize, Map<String, Object> filters, ClienteVO cliente)
+	public List<PessoaVO> listarPessoas(int first, int pageSize, Map<String, Object> filters, ClienteVO cliente)
 			throws BOException {
-
 		IPessoaBO pessoaBO = new PessoaBO();
 		
-		return pessoaBO.ListarPessoas(first, pageSize, filters, cliente);
-		
+		return pessoaBO.listarPessoas(first, pageSize, filters, cliente);
 	}
-	
+
 }
+
+
+
+
+
+

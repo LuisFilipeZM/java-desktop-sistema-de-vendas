@@ -8,7 +8,7 @@ import br.com.empresa.exception.BOException;
 import br.com.empresa.vo.UsuarioClienteVO;
 import br.com.empresa.vo.UsuarioVO;
 
-public class UsuarioClienteBO implements IUsuarioClienteBO{
+public class UsuarioClienteBO implements IUsuarioClienteBO {
 	
 	private IUsuarioClienteDAO usuarioClienteDAO;
 
@@ -16,24 +16,26 @@ public class UsuarioClienteBO implements IUsuarioClienteBO{
 		super();
 		usuarioClienteDAO = new UsuarioClienteDAO();
 	}
-	
+
 	@Override
-	public List<UsuarioClienteVO> listarClienteUsuario(UsuarioVO usuario) throws BOException {
+	public List<UsuarioClienteVO> listarClientesUsuario(UsuarioVO usuario) throws BOException {
 		
-		if (usuario == null || usuario.getId() == null) {
-			throw new BOException("Ocorreu um erro ao listar cliente de um usuario.");
+		if(usuario == null || usuario.getId() == null) {
+			throw new BOException("Ocorreu um erro ao listar clientes de um usuário.");
 		}
 		
 		return usuarioClienteDAO.listarClientesUsuario(usuario);
 	}
 
 	@Override
-	public int buscarQuantidadeClienteUsuario(UsuarioVO usuario) throws BOException {
+	public int buscarQuantidadeClientesUsuario(UsuarioVO usuario) throws BOException {
 		
-		if (usuario == null || usuario.getId() == null) {
-			throw new BOException("Ocorreu um erro ao listar cliente de um usuario.");
+		if(usuario == null || usuario.getId() == null) {
+			throw new BOException("Ocorreu um erro ao buscar quantidade de"
+					+ " clientes de um usuário.");
 		}
 		
 		return usuarioClienteDAO.buscarQuantidadeClientesUsuario(usuario);
 	}
+
 }

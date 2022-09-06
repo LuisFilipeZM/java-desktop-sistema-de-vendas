@@ -46,18 +46,21 @@ public class PessoaDAO implements IPessoaDAO {
 			}
 			
 			if(cidade != null && cidade.trim().length() > 0) {
-				if(pessoaVO.getCidade() != null && pessoaVO.getCidade().contains(cidade) == false) {
+				if(pessoaVO.getCidade() != null && 
+						pessoaVO.getCidade().contains(cidade) == false) {
 					continue;
 				}
 			}
 			
 			if(estado != null && estado.trim().length() > 0) {
-				if(pessoaVO.getEstado() != null && pessoaVO.getEstado().contains(estado) == false) {
+				if(pessoaVO.getEstado() != null && 
+						pessoaVO.getEstado().contains(estado) == false) {
 					continue;
 				}
 			}
 			
 			retorno.add(pessoaVO);
+			
 		}
 		
 		return retorno;
@@ -65,7 +68,7 @@ public class PessoaDAO implements IPessoaDAO {
 
 	@Override
 	public void salvarPessoa(PessoaVO pessoa) throws BOValidationException, BOException {
-
+		
 		List<PessoaVO> pessoaVOs = Dados.getPessoaVOs();
 		
 		if(pessoa.getId() == null) {
@@ -92,7 +95,7 @@ public class PessoaDAO implements IPessoaDAO {
 	@Override
 	public void excluirPessoa(PessoaVO pessoa) throws BOValidationException, BOException {
 		
-		for(int i = 0; i < Dados.getPessoaVOs().size(); i ++) {
+		for(int i = 0; i < Dados.getPessoaVOs().size(); i++) {
 			if(Dados.getPessoaVOs().get(i).equals(pessoa)) {
 				Dados.getPessoaVOs().remove(i);
 			}
@@ -103,17 +106,17 @@ public class PessoaDAO implements IPessoaDAO {
 	@Override
 	public PessoaVO buscarPessoaPorId(PessoaVO pessoa) throws BOException {
 
-		for(int i = 0; i < Dados.getPessoaVOs().size(); i ++) {
+		for(int i = 0; i < Dados.getPessoaVOs().size(); i++) {
 			if(Dados.getPessoaVOs().get(i).equals(pessoa)) {
 				return Dados.getPessoaVOs().get(i);
 			}
 		}
-		
+
 		return null;
 	}
 
 	@Override
-	public List<PessoaVO> ListarPessoas(int first, int pageSize, Map<String, Object> filters, ClienteVO cliente)
+	public List<PessoaVO> listarPessoas(int first, int pageSize, Map<String, Object> filters, ClienteVO cliente)
 			throws BOException {
 		// TODO Auto-generated method stub
 		return null;

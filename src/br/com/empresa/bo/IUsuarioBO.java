@@ -5,10 +5,8 @@ import br.com.empresa.exception.BOValidationException;
 import br.com.empresa.vo.UsuarioVO;
 
 public interface IUsuarioBO {
-
-	public abstract UsuarioVO validarAcesso(String login, String senha) 
+	
+	public abstract UsuarioVO validarAcesso(String login, String senha)
 			throws BOValidationException, BOException;
-	
-	
-	
+
 }
