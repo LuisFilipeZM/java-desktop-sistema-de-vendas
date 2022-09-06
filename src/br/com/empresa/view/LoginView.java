@@ -71,6 +71,11 @@ public class LoginView extends JFrame {
 		tfLogin.setColumns(10);
 		
 		pfSenha = new JPasswordField();
+		pfSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				autenticarAcesso();
+			}
+		});
 		pfSenha.setBounds(51, 43, 237, 20);
 		getContentPane().add(pfSenha);
 		
