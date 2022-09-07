@@ -54,6 +54,14 @@ public class MenuSistemaView extends JFrame {
 			}
 		});
 		mnManutencao.add(mniConsumidor);
+		
+		JMenuItem mniManutencao = new JMenuItem("Manutenção de Produto");
+		mniManutencao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manterManutencaoProduto();
+			}
+		});
+		mnManutencao.add(mniManutencao);
 
 		JMenu mnAjuda = new JMenu("Ajuda");
 		menuBar.add(mnAjuda);
@@ -93,6 +101,14 @@ public class MenuSistemaView extends JFrame {
 		JDialog consultaConsumidorFornecedorView = new ConsultaConsumidorFornecedorView();
 		consultaConsumidorFornecedorView.setModal(true);
 		consultaConsumidorFornecedorView.setVisible(true);
+		
+	}
+	
+	private void manterManutencaoProduto() {
+		
+		JDialog manutencaoProduto = new ConsultaManutencaoProdutoView();
+		manutencaoProduto.setModal(true);
+		manutencaoProduto.setVisible(true);
 		
 	}
 
