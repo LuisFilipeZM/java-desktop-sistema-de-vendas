@@ -1,13 +1,16 @@
 package br.com.empresa.dao;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.empresa.vo.ClienteVO;
 import br.com.empresa.vo.PessoaVO;
+import br.com.empresa.vo.ProdutoVO;
 import br.com.empresa.vo.UsuarioClienteVO;
 import br.com.empresa.vo.UsuarioVO;
+import br.com.empresa.vo.enums.StatusEnum;
 
 public class Dados {
 	
@@ -19,6 +22,8 @@ public class Dados {
 	static List<UsuarioClienteVO> usuarioClienteVOs;
 	
 	static List<PessoaVO> pessoaVOs;
+	
+	static List<ProdutoVO> produtoVOs;
 	
 	static {
 		
@@ -99,6 +104,38 @@ public class Dados {
 		pessoaVOs.add(p1);
 		pessoaVOs.add(p2);
 		
+		//Inclusão de produtos
+		produtoVOs = new ArrayList<ProdutoVO>();
+		
+		ProdutoVO pr1 = new ProdutoVO();
+		pr1.setId(new BigInteger("1"));
+		pr1.setDescri("Batata");
+		pr1.setQtdest(new BigDecimal(10));
+		pr1.setStatus("A");
+		pr1.setValcom(new BigDecimal(1));
+		pr1.setValven(new BigDecimal(1.50));
+		pr1.setCodbar("251426578");
+		
+		ProdutoVO pr2 = new ProdutoVO();
+		pr2.setId(new BigInteger("2"));
+		pr2.setDescri("Manteiga");
+		pr2.setQtdest(new BigDecimal(57));
+		pr2.setStatus("A");
+		pr2.setValcom(new BigDecimal(2));
+		pr2.setValven(new BigDecimal(2.85));
+		pr2.setCodbar("778485448");
+		
+		produtoVOs.add(pr1);
+		produtoVOs.add(pr2);
+		
+	}
+
+	public static List<ProdutoVO> getProdutoVOs() {
+		return produtoVOs;
+	}
+
+	public static void setProdutoVOs(List<ProdutoVO> produtoVOs) {
+		Dados.produtoVOs = produtoVOs;
 	}
 
 	public static UsuarioVO getUsuarioLogado() {

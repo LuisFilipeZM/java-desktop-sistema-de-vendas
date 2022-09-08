@@ -1,5 +1,6 @@
 package br.com.empresa.service;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import br.com.empresa.exception.BOException;
 import br.com.empresa.exception.BOValidationException;
 import br.com.empresa.vo.ClienteVO;
 import br.com.empresa.vo.PessoaVO;
+import br.com.empresa.vo.ProdutoVO;
 import br.com.empresa.vo.UsuarioClienteVO;
 import br.com.empresa.vo.UsuarioVO;
 
@@ -35,6 +37,21 @@ public interface IServicoBeanLocal {
 	
 	public abstract List<PessoaVO> listarPessoas(int first, int pageSize, 
 			Map<String, Object> filters, ClienteVO cliente) throws BOException;
+	
+	public abstract ProdutoVO buscarProdutoPorId(ProdutoVO produtoVO) 
+			throws BOException;
+	
+	public abstract List<ProdutoVO> listarProduto(BigInteger id, String descri, String status, String codbar, ClienteVO client) 
+			throws BOException;
+	
+	public abstract int listarProdutoCount(BigInteger id, String descri, String status, String codbar, ClienteVO client) 
+			throws BOException;
+	
+	public abstract void salvarProduto(ProdutoVO produtoVO) 
+			throws BOValidationException, BOException;
+	
+	public abstract void excluirProduto(ProdutoVO produtoVO) 
+			throws BOValidationException, BOException;
 
 }
 
