@@ -91,8 +91,8 @@ public class Dados {
 		PessoaVO p2 = new PessoaVO();
 		p2.setId(new BigInteger("2"));
 		p2.setDescri("Maria Joaquina");
-		p2.setCpfcnp("544545445-44");
-		p2.setTippes("F");
+		p2.setCpfcnp("690123160001-08");
+		p2.setTippes("J");
 		p2.setRuaend("Rua Marechal Colombo");
 		p2.setBaiend("Bairro XYZ");
 		p2.setNumend("800");

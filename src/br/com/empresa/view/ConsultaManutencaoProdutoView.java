@@ -31,6 +31,8 @@ import br.com.empresa.service.IServicoBeanLocal;
 import br.com.empresa.service.ServicoBeanLocal;
 import br.com.empresa.view.util.RowData;
 import br.com.empresa.view.util.TableModel;
+import br.com.empresa.vo.PessoaVO;
+import br.com.empresa.vo.ProdutoVO;
 import br.com.empresa.vo.ProdutoVO;
 import br.com.empresa.vo.enums.StatusEnum;
 
@@ -127,10 +129,20 @@ public class ConsultaManutencaoProdutoView extends JDialog {
 		getContentPane().add(btnAdicionar);
 
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editar();
+			}
+		});
 		btnEditar.setBounds(116, 122, 96, 30);
 		getContentPane().add(btnEditar);
 
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				excluir();
+			}
+		});
 		btnExcluir.setBounds(222, 122, 96, 30);
 		getContentPane().add(btnExcluir);
 
@@ -178,7 +190,7 @@ public class ConsultaManutencaoProdutoView extends JDialog {
 		scrollPane.setViewportView(table);
 	}
 
-	private void pesquisar() {
+	public void pesquisar() {
 
 		TableModel tableModel = (TableModel) table.getModel();
 		tableModel.clearTable();
@@ -191,7 +203,7 @@ public class ConsultaManutencaoProdutoView extends JDialog {
 			if (statusEnum != null) {
 				status = statusEnum.name();
 			}
-
+			
 			String codbar = null;
 			if (tfCodBarras != null && tfCodBarras.getText().trim().length() > 0) {
 				codbar = tfCodBarras.getText();
@@ -246,6 +258,55 @@ public class ConsultaManutencaoProdutoView extends JDialog {
 		
 		this.setVisible(false);
 		this.dispose();
+		
+	}
+	
+	private void excluir() {
+		
+		if (table.getSelectedRow() < 0) {
+			JOptionPane.showMessageDialog(this, "É necessário selecionar um registro!", "Mensagem de aviso!",
+					JOptionPane.WARNING_MESSAGE);
+		} else {
+
+			Object[] options = { "Sim", "Não" };
+			int n = JOptionPane.showOptionDialog(null, "Deseja realmente excluir o registro?", "Confirmação",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+
+			if (n == 0) {
+				ProdutoVO produtoVO = (ProdutoVO) tableModel.getRows().get(table.getSelectedRow()).getElement();
+
+				try {
+					serviceBeanLocal.excluirProduto(produtoVO);
+					pesquisar();
+				} catch (BOException e) {
+					JOptionPane.showMessageDialog(this, "Ocorreu um erro ao realizar a operação!", "Mensagem de erro",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+
+		}
+		
+	}
+	
+	private void editar() {
+		
+		if(table.getSelectedRow() < 0) {
+			JOptionPane.showMessageDialog(this, 
+					"É necessário selecionar um registro!",
+					"Mensagem de aviso",
+					JOptionPane.WARNING_MESSAGE);
+		}else {
+			
+			ManutencaoProdutoView mpv = 
+					new ManutencaoProdutoView(this);
+			
+			ProdutoVO aux = (ProdutoVO)tableModel.getRows().get(table.getSelectedRow()).getElement();
+			
+			mpv.editar(aux);
+			
+			mpv.setVisible(true);
+		}
+		
 		
 	}
 }

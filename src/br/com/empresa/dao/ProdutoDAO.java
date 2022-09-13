@@ -105,7 +105,12 @@ public class ProdutoDAO implements IProdutoDAO {
 
 	@Override
 	public void excluirProduto(ProdutoVO produtoVO) throws BOValidationException, BOException {
-		// TODO Auto-generated method stub
+
+		for(int i = 0; i < Dados.getProdutoVOs().size(); i++) {
+			if(Dados.getProdutoVOs().get(i).equals(produtoVO)) {
+				Dados.getProdutoVOs().remove(i);
+			}
+		}
 
 	}
 

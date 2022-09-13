@@ -1,24 +1,30 @@
 package br.com.empresa.view;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import br.com.empresa.dao.Dados;
+import br.com.empresa.exception.BOException;
+import br.com.empresa.exception.BOValidationException;
+import br.com.empresa.service.IServicoBeanLocal;
+import br.com.empresa.service.ServicoBeanLocal;
+import br.com.empresa.vo.PessoaVO;
 import br.com.empresa.vo.ProdutoVO;
+import br.com.empresa.vo.enums.EstadoEnum;
 import br.com.empresa.vo.enums.StatusEnum;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import br.com.empresa.vo.enums.TipoPessoaEnum;
 
 public class ManutencaoProdutoView extends JDialog {
 
@@ -29,14 +35,18 @@ public class ManutencaoProdutoView extends JDialog {
 	private JTextField tfQtdEstoque;
 	private JTextField tfVlrCompra;
 	private JTextField tfVlrVenda;
-	
 	private JComboBox cbStatus;
 	
 	private ProdutoVO produtoVO;
 	
+	private IServicoBeanLocal servicoBeanLocal;
+	
+	private ConsultaManutencaoProdutoView telaAnterior;
+	
 	public ManutencaoProdutoView(ConsultaManutencaoProdutoView jDialog) {
 		super(jDialog, true);
 		inicializarComponentes();
+		telaAnterior = jDialog;
 	}
 	/**
 	 * Create the dialog.
@@ -47,6 +57,10 @@ public class ManutencaoProdutoView extends JDialog {
 	}
 	
 	public void inicializarComponentes() {
+		
+		servicoBeanLocal = new ServicoBeanLocal();
+		produtoVO = new ProdutoVO();
+		
 		setTitle("Manutenção de Produto <2>");
 		setBounds(100, 100, 408, 296);
 		getContentPane().setLayout(new BorderLayout());
@@ -120,6 +134,11 @@ public class ManutencaoProdutoView extends JDialog {
 		contentPanel.add(lblStatus);
 		
 		JButton btnFechar = new JButton("Fechar");
+		btnFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fechar();
+			}
+		});
 		btnFechar.setBounds(293, 223, 89, 23);
 		contentPanel.add(btnFechar);
 		
@@ -135,15 +154,69 @@ public class ManutencaoProdutoView extends JDialog {
 	
 	private void salvar() {
 		
-		BigInteger bigIntegerStr = null;
+		BigDecimal qtdEstqStr = null;
 		if (tfQtdEstoque != null && tfQtdEstoque.getText().trim().length() > 0) {
-			bigIntegerStr = new BigInteger(tfQtdEstoque.getText());
+			qtdEstqStr = new BigDecimal(tfQtdEstoque.getText());
+		}
+		
+		BigDecimal vlrCom = null;
+		if (tfVlrCompra != null && tfVlrCompra.getText().trim().length() > 0) {
+			vlrCom = new BigDecimal(tfVlrCompra.getText());
+		}
+		
+		BigDecimal vlrVen = null;
+		if (tfVlrVenda != null && tfVlrVenda.getText().trim().length() > 0) {
+			vlrVen = new BigDecimal(tfVlrVenda.getText());
 		}
 		
 		produtoVO.setDescri(tfDescricao.getText());
 		produtoVO.setCodbar(tfCdBarras.getText());
+		produtoVO.setQtdest(qtdEstqStr);
+		produtoVO.setValcom(vlrCom);
+		produtoVO.setValven(vlrVen);
 		StatusEnum sp = (StatusEnum) cbStatus.getSelectedItem();
 		produtoVO.setStatus(sp.name());
+		produtoVO.setClient(Dados.getClienteSelecionado());
 		
+		try {
+			
+			servicoBeanLocal.salvarProduto(produtoVO);
+			
+			tfCodigo.setText(produtoVO.getId().toString());
+			
+			telaAnterior.pesquisar();
+			
+			JOptionPane.showMessageDialog(this, "Operação realizada com sucesso!",
+					"Mensagem de comfirmação", JOptionPane.INFORMATION_MESSAGE);
+			
+		} catch (BOValidationException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Mensagem de alerta",
+					JOptionPane.WARNING_MESSAGE);
+			e.printStackTrace();
+		} catch (BOException e) {
+			JOptionPane.showMessageDialog(this, "Ocorreu um erro ao realizar a operação",
+					"Mensagem de erro",
+					JOptionPane.WARNING_MESSAGE);
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void editar(ProdutoVO produtoVO) {
+		
+		this.produtoVO = produtoVO;
+		this.tfCodigo.setText(produtoVO.getId().toString());
+		this.cbStatus.setSelectedItem(StatusEnum.valueOf(produtoVO.getStatus()));
+		this.tfDescricao.setText(produtoVO.getDescri());
+		this.tfCdBarras.setText(produtoVO.getCodbar());
+		this.tfQtdEstoque.setText(produtoVO.getQtdest().toString());
+		this.tfVlrCompra.setText(produtoVO.getValcom().toString());
+		this.tfVlrVenda.setText(produtoVO.getValven().toString());
+		
+	}
+	
+	private void fechar() {
+		this.setVisible(false);
+		this.dispose();
 	}
 }
