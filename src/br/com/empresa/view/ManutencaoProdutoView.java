@@ -3,6 +3,7 @@ package br.com.empresa.view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -10,11 +11,14 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import br.com.empresa.vo.ProdutoVO;
 import br.com.empresa.vo.enums.StatusEnum;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ManutencaoProdutoView extends JDialog {
 
@@ -27,6 +31,8 @@ public class ManutencaoProdutoView extends JDialog {
 	private JTextField tfVlrVenda;
 	
 	private JComboBox cbStatus;
+	
+	private ProdutoVO produtoVO;
 	
 	public ManutencaoProdutoView(ConsultaManutencaoProdutoView jDialog) {
 		super(jDialog, true);
@@ -52,6 +58,7 @@ public class ManutencaoProdutoView extends JDialog {
 		contentPanel.add(lblCodigo);
 			
 		tfCodigo = new JTextField();
+		tfCodigo.setEditable(false);
 		tfCodigo.setBounds(107, 7, 110, 19);
 		contentPanel.add(tfCodigo);
 		tfCodigo.setColumns(10);
@@ -117,7 +124,26 @@ public class ManutencaoProdutoView extends JDialog {
 		contentPanel.add(btnFechar);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				salvar();
+			}
+		});
 		btnSalvar.setBounds(189, 223, 89, 23);
 		contentPanel.add(btnSalvar);
+	}
+	
+	private void salvar() {
+		
+		BigInteger bigIntegerStr = null;
+		if (tfQtdEstoque != null && tfQtdEstoque.getText().trim().length() > 0) {
+			bigIntegerStr = new BigInteger(tfQtdEstoque.getText());
+		}
+		
+		produtoVO.setDescri(tfDescricao.getText());
+		produtoVO.setCodbar(tfCdBarras.getText());
+		StatusEnum sp = (StatusEnum) cbStatus.getSelectedItem();
+		produtoVO.setStatus(sp.name());
+		
 	}
 }

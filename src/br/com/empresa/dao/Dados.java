@@ -115,6 +115,7 @@ public class Dados {
 		pr1.setValcom(new BigDecimal(1));
 		pr1.setValven(new BigDecimal(1.50));
 		pr1.setCodbar("251426578");
+		pr1.setClient(c1);
 		
 		ProdutoVO pr2 = new ProdutoVO();
 		pr2.setId(new BigInteger("2"));
@@ -124,6 +125,7 @@ public class Dados {
 		pr2.setValcom(new BigDecimal(2));
 		pr2.setValven(new BigDecimal(2.85));
 		pr2.setCodbar("778485448");
+		pr2.setClient(c1);
 		
 		produtoVOs.add(pr1);
 		produtoVOs.add(pr2);

@@ -35,7 +35,10 @@ public class ProdutoBO implements IProdutoBO{
 	@Override
 	public List<ProdutoVO> listarProduto(BigInteger id, String descri, String status, String codbar, ClienteVO client)
 			throws BOException {
-				
+		
+		if(client == null || client.getId() == null) {
+			throw new BOException(); 
+		}
 		return produtoDAO.listarProduto(id, descri, status, codbar, client);
 	}
 
