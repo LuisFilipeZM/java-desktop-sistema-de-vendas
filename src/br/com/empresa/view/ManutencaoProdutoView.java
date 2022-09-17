@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -20,11 +21,13 @@ import br.com.empresa.exception.BOException;
 import br.com.empresa.exception.BOValidationException;
 import br.com.empresa.service.IServicoBeanLocal;
 import br.com.empresa.service.ServicoBeanLocal;
+import br.com.empresa.view.util.MascaraJFormattedTextField;
 import br.com.empresa.vo.PessoaVO;
 import br.com.empresa.vo.ProdutoVO;
 import br.com.empresa.vo.enums.EstadoEnum;
 import br.com.empresa.vo.enums.StatusEnum;
 import br.com.empresa.vo.enums.TipoPessoaEnum;
+import javax.swing.JFormattedTextField;
 
 public class ManutencaoProdutoView extends JDialog {
 
@@ -32,9 +35,9 @@ public class ManutencaoProdutoView extends JDialog {
 	private JTextField tfCodigo;
 	private JTextField tfDescricao;
 	private JTextField tfCdBarras;
-	private JTextField tfQtdEstoque;
-	private JTextField tfVlrCompra;
-	private JTextField tfVlrVenda;
+	private JFormattedTextField tfQtdEstoque;
+	private JFormattedTextField tfVlrCompra;
+	private JFormattedTextField tfVlrVenda;
 	private JComboBox cbStatus;
 	
 	private ProdutoVO produtoVO;
@@ -95,28 +98,13 @@ public class ManutencaoProdutoView extends JDialog {
 		lblCdBarras.setBounds(10, 70, 87, 13);
 		contentPanel.add(lblCdBarras);
 		
-		tfQtdEstoque = new JTextField();
-		tfQtdEstoque.setColumns(10);
-		tfQtdEstoque.setBounds(107, 97, 74, 19);
-		contentPanel.add(tfQtdEstoque);
-		
 		JLabel lblQtdEstoque = new JLabel("Qtd. Estoque: *");
 		lblQtdEstoque.setBounds(10, 100, 87, 13);
 		contentPanel.add(lblQtdEstoque);
 		
-		tfVlrCompra = new JTextField();
-		tfVlrCompra.setColumns(10);
-		tfVlrCompra.setBounds(107, 127, 110, 19);
-		contentPanel.add(tfVlrCompra);
-		
 		JLabel lblVlrCompra = new JLabel("Vlr. Compra: *");
 		lblVlrCompra.setBounds(10, 130, 87, 13);
 		contentPanel.add(lblVlrCompra);
-		
-		tfVlrVenda = new JTextField();
-		tfVlrVenda.setColumns(10);
-		tfVlrVenda.setBounds(107, 157, 110, 19);
-		contentPanel.add(tfVlrVenda);
 		
 		JLabel lblVlrVenda = new JLabel("Vlr. Venda: *");
 		lblVlrVenda.setBounds(10, 160, 87, 13);
@@ -150,33 +138,53 @@ public class ManutencaoProdutoView extends JDialog {
 		});
 		btnSalvar.setBounds(189, 223, 89, 23);
 		contentPanel.add(btnSalvar);
+		
+		tfQtdEstoque = new JFormattedTextField();
+		tfQtdEstoque.setBounds(107, 97, 69, 19);
+		tfQtdEstoque.setFocusLostBehavior(JFormattedTextField.PERSIST);
+		contentPanel.add(tfQtdEstoque);
+		
+		tfVlrCompra = new JFormattedTextField();
+		tfVlrCompra.setBounds(107, 127, 110, 19);
+		tfVlrCompra.setFocusLostBehavior(JFormattedTextField.PERSIST);
+		contentPanel.add(tfVlrCompra);
+		
+		tfVlrVenda = new JFormattedTextField();
+		tfVlrVenda.setBounds(107, 157, 110, 19);
+		tfVlrVenda.setFocusLostBehavior(JFormattedTextField.PERSIST);
+		contentPanel.add(tfVlrVenda);
+		
 	}
 	
 	private void salvar() {
 		
-		BigDecimal qtdEstqStr = null;
-		if (tfQtdEstoque != null && tfQtdEstoque.getText().trim().length() > 0) {
-			qtdEstqStr = new BigDecimal(tfQtdEstoque.getText());
+		String vlrcom = tfVlrCompra.getText().trim().replaceAll(",", ".").replaceAll(" ", "");
+		if(vlrcom.length() > 1) {
+			BigDecimal vlrCompra = new BigDecimal(vlrcom);
+			produtoVO.setValcom(vlrCompra);
 		}
 		
-		BigDecimal vlrCom = null;
-		if (tfVlrCompra != null && tfVlrCompra.getText().trim().length() > 0) {
-			vlrCom = new BigDecimal(tfVlrCompra.getText());
+		String vlrVen = tfVlrVenda.getText().trim().replaceAll(",", ".").replaceAll(" ", "");
+		if(vlrVen.length() > 1) {
+			BigDecimal vlrVenda = new BigDecimal(vlrVen);
+			produtoVO.setValven(vlrVenda);
 		}
 		
-		BigDecimal vlrVen = null;
-		if (tfVlrVenda != null && tfVlrVenda.getText().trim().length() > 0) {
-			vlrVen = new BigDecimal(tfVlrVenda.getText());
-		}
 		
+		String qtdEstqStr = tfQtdEstoque.getText().trim().replaceAll(",", ".").replaceAll(" ", "");
+		if(qtdEstqStr.length() > 1) {
+			BigDecimal qtd = new BigDecimal(qtdEstqStr);
+			produtoVO.setQtdest(qtd);
+		}
+
 		produtoVO.setDescri(tfDescricao.getText());
 		produtoVO.setCodbar(tfCdBarras.getText());
-		produtoVO.setQtdest(qtdEstqStr);
-		produtoVO.setValcom(vlrCom);
-		produtoVO.setValven(vlrVen);
-		StatusEnum sp = (StatusEnum) cbStatus.getSelectedItem();
-		produtoVO.setStatus(sp.name());
 		produtoVO.setClient(Dados.getClienteSelecionado());
+		StatusEnum sp = (StatusEnum) cbStatus.getSelectedItem();
+		
+		if(sp != null) {
+			produtoVO.setStatus(sp.name());
+		}
 		
 		try {
 			

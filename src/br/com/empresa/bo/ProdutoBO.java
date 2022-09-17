@@ -56,6 +56,9 @@ public class ProdutoBO implements IProdutoBO{
 
 		if(produtoVO == null) {
 			throw new BOException("Não é possível salvar a pessoa pois o objeto é nulo.");
+		}else if(produtoVO.getStatus() == null || produtoVO.getCodbar().trim().length() == 0) {
+			throw new BOValidationException("Status: erro de validação. "
+					+ "O Status do produto deve ser selecionado.");
 		}else if(produtoVO.getDescri() == null || produtoVO.getDescri().trim().length() == 0) {
 			throw new BOValidationException("Descrição: erro de validação. "
 					+ "A descrição do produto deve ser preenchida.");
@@ -71,9 +74,6 @@ public class ProdutoBO implements IProdutoBO{
 		}else if(produtoVO.getValven() == null || produtoVO.getValven() == BigDecimal.ZERO) {
 			throw new BOValidationException("Vlr. Venda: erro de validação. "
 					+ "A Vlr. Venda do produto deve ser preenchida.");
-		}else if(produtoVO.getStatus() == null) {
-			throw new BOValidationException("Status: erro de validação. "
-					+ "O Status do produto deve ser selecionado.");
 		}
 		
 		produtoDAO.salvarProduto(produtoVO);

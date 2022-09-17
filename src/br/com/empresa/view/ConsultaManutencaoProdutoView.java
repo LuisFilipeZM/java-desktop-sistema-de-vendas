@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.swing.AbstractButton;
@@ -22,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import br.com.empresa.dao.Dados;
@@ -34,6 +36,7 @@ import br.com.empresa.view.util.TableModel;
 import br.com.empresa.vo.PessoaVO;
 import br.com.empresa.vo.ProdutoVO;
 import br.com.empresa.vo.ProdutoVO;
+import br.com.empresa.vo.enums.EstadoEnum;
 import br.com.empresa.vo.enums.StatusEnum;
 
 public class ConsultaManutencaoProdutoView extends JDialog {
@@ -172,13 +175,24 @@ public class ConsultaManutencaoProdutoView extends JDialog {
 		table = new JTable(tableModel);
 		table.setAutoscrolls(true);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		leftRenderer.setHorizontalAlignment(JLabel.LEFT);
 
 		TableColumnModel tableColumnModel = table.getColumnModel();
+		tableColumnModel.getColumn(0).setCellRenderer(centerRenderer);
 		tableColumnModel.getColumn(0).setPreferredWidth(50);
+		tableColumnModel.getColumn(1).setCellRenderer(leftRenderer);
 		tableColumnModel.getColumn(1).setPreferredWidth(270);
+		tableColumnModel.getColumn(2).setCellRenderer(leftRenderer);
 		tableColumnModel.getColumn(2).setPreferredWidth(80);
+		tableColumnModel.getColumn(3).setCellRenderer(centerRenderer);
 		tableColumnModel.getColumn(3).setPreferredWidth(100);
+		tableColumnModel.getColumn(4).setCellRenderer(leftRenderer);
 		tableColumnModel.getColumn(4).setPreferredWidth(80);
+		tableColumnModel.getColumn(5).setCellRenderer(leftRenderer);
 		tableColumnModel.getColumn(5).setPreferredWidth(80);
 
 		// Coloca a janela no centro da tela.
@@ -217,15 +231,19 @@ public class ConsultaManutencaoProdutoView extends JDialog {
 			List<ProdutoVO> produto = serviceBeanLocal.listarProduto(bigIntegerStr, tfDescricao.getText(), status,
 					codbar, Dados.getClienteSelecionado());
 
+			DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
+			
+			DecimalFormat decimalFormatQtd = new DecimalFormat("###,###.000");
+			
 			for (ProdutoVO p : produto) {
 
 				RowData rowData = new RowData();
 				rowData.getValues().put(0, p.getId().toString());
 				rowData.getValues().put(1, p.getDescri());
-				rowData.getValues().put(2, p.getQtdest());
-				rowData.getValues().put(3, p.getStatus());
-				rowData.getValues().put(4, p.getValcom());
-				rowData.getValues().put(5, p.getValven());
+				rowData.getValues().put(2, decimalFormatQtd.format(p.getQtdest()));
+				rowData.getValues().put(3, StatusEnum.valueOf(p.getStatus()));
+				rowData.getValues().put(4, decimalFormat.format(p.getValcom()));
+				rowData.getValues().put(5, decimalFormat.format(p.getValven()));
 				rowData.setElement(p);
 				tableModel.addRow(rowData);
 			}
